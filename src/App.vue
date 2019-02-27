@@ -9,7 +9,7 @@ export default {
 }
 </script>
 
-<style lang='sass'>
+<style lang='scss'>
 @import './style/css/common'
 
 </style>
