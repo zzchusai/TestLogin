@@ -1,3 +1,3 @@
-export const setUser = ({ commit }, user) => commit("setUser", user);
+// export const logout = ({ commit }, user) => commit("LOGOUT", user);
 
-export const userToken = ({ commit }, token) => commit("userToken", token);
+// export const userToken = ({ commit }, token) => commit("USERTOKEN", token);

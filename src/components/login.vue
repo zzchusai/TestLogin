@@ -32,7 +32,7 @@ import {mapActions,mapGetters,mapMutations} from 'vuex';
           isPwd:true
       }
     },methods: {
-        ...mapMutations(['setUser','userToken']),
+        ...mapMutations(['SETUSER','USERTOKEN']),
         txtPhoneBlur(event){
             let self=this;
             let regPhone=/1[3,5,8][0-9]{9}/;
@@ -68,10 +68,10 @@ import {mapActions,mapGetters,mapMutations} from 'vuex';
                     message:'登陆成功',
                     type:'success'
                 })
-                self.setUser({
+                self.SETUSER({
                     currentUser:'zzc',
                 })
-                self.userToken({
+                self.USERTOKEN({
                     access_token:'123'
                 })
                 let userName="zzc"

@@ -16,17 +16,25 @@ const router= new Router({
         children:[
           {
             path:'/userList',
-            component:resolve=>require(['../components/pages/userList.vue'],resolve),
+            component:resolve=>require(['../components/pages/user/userList.vue'],resolve),
             // meta:{
             //   keepAlive=true
             // }
           },
           {
             path:'/userDetails',
-            component:resolve=>require(['../components/pages/userDetails.vue'],resolve),
+            component:resolve=>require(['../components/pages/user/userDetails.vue'],resolve),
             // meta:{
             //   keepAlive:false
             // }
+          },
+          {
+            path:'/roleManage', //角色管理
+            component:resolve=>require(['../components/pages/sysManage/roleManage.vue'],resolve)
+          },
+          {
+            path:"/powerManage", //权限管理
+            component:resolve=>require(['../components/pages/sysManage/powerManage.vue'],resolve)
           }
         ]
       },

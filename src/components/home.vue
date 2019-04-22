@@ -13,27 +13,19 @@
                           default-active="2"
                           class="el-menu-vertical-demo"
                           background-color='#D3DCE6'>
-                          <el-submenu index="1">
+                          <el-submenu v-for="(item,index) in onetowel" :index='item.id' :key="item.id">
                             <template slot="title">
                               <i class="el-icon-location"></i>
-                              <span>首页</span>
+                              <span>{{item.name}}</span>
                             </template>
-                            <el-menu-item-group>
-                              <el-menu-item index="1-1" @click="goUserList">普通用户列表</el-menu-item>
-                              <el-menu-item index="1-2">会员列表</el-menu-item>
-                            </el-menu-item-group>
-                            <el-menu-item-group title="分组2">
-                              <el-menu-item index="1-3">选项3</el-menu-item>
-                            </el-menu-item-group>
-                            <el-submenu index="1-4">
-                              <template slot="title">选项4</template>
-                              <el-menu-item index="1-4-1">选项1</el-menu-item>
-                            </el-submenu>
+                            <el-menu-item v-for="(items,indexs) in item.child" :index='items.id' :key="items.id" @click="topath(items.path)">
+                              <span >{{items.name}}</span>
+                            </el-menu-item>
                           </el-submenu>
                         </el-menu>
                       </el-col>
                     </el-aside>
-                        <el-main>
+                        <el-main class="main">
                           <!-- <keep-alive> -->
                              <router-view></router-view>
                           <!-- </keep-alive> -->
@@ -52,15 +44,16 @@ import {mapActions,mapGetters,mapMutations} from 'vuex';
         currentPage:1,
         tableData:[],
         titleData:[],
+        onetowel:[]
       }
     },methods: {
-      ...mapMutations(["setUser","userToken"]),
+      ...mapMutations(['SETUSER','USERTOKEN']),
       logout(){
         let _this=this;
-        _this.setUser({
+        _this.SETUSER({
           currentUser:""
         })
-        _this.userToken({
+        _this.USERTOKEN({
           access_token:""
         })
         _this.$router.push('/login')
@@ -68,11 +61,25 @@ import {mapActions,mapGetters,mapMutations} from 'vuex';
       goUserList(){
         let _this=this;
         _this.$router.push('/userList')
+      },
+      getMenu(){
+        let _this=this;
+        let data={
+          type:1
+        }
+        _this.$http({method:"post",url:_this.Host+"/menu",params:data}).then(function(res){
+        _this.onetowel=res.data.data.data;
+        })
+      },
+      topath(path){
+        let _this=this;
+        _this.$router.push("/"+path);
       }
     },
     created() {
       let _this=this;
       _this.adminName=localStorage.getItem('username')
+      _this.getMenu();
     }
   }
 </script>
@@ -135,5 +142,8 @@ import {mapActions,mapGetters,mapMutations} from 'vuex';
 }
 td,th{
   border-right:1px solid #cccccc;
+}
+.main{
+  background: #fff;
 }
 </style>

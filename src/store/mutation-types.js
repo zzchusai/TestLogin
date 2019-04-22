@@ -1,0 +1,1 @@
+//提供的数据只能mapActions使用，不能是mapMuations使用
